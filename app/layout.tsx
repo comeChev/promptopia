@@ -12,7 +12,7 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en">
       <body>
-        <Provider session={session as Session}>
+        <Provider>
           <div className="main">
             <div className="gradient" />
           </div>
