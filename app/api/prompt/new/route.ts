@@ -11,13 +11,9 @@ export async function POST(req: Request) {
       tag,
     });
     await newPrompt.save();
-    return new Response(JSON.stringify(newPrompt), { status: 201 });
+
+    return new Response(JSON.stringify(newPrompt));
   } catch (error: any) {
-    return (
-      new Response(error.message),
-      {
-        status: 500,
-      }
-    );
+    return new Response(error.message);
   }
 }
