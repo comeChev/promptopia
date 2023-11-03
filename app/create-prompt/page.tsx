@@ -4,7 +4,6 @@ import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import Form from "@components/Form";
 import { useSession } from "next-auth/react";
-import { revalidatePath } from "next/cache";
 
 const CreatePrompt = () => {
   const [submitting, setSubmitting] = useState(false);
@@ -15,10 +14,7 @@ const CreatePrompt = () => {
   async function createPrompt(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setSubmitting(true);
-    if (!session) {
-      alert("You must be logged in to create a prompt.");
-      return;
-    }
+
     try {
       const response = await fetch("/api/prompt/new", {
         method: "POST",
