@@ -1,6 +1,10 @@
 import Feed from "@components/Feed";
 
-const Home = () => {
+const Home = async () => {
+  const data = await fetch(`${process.env.NEXTAUTH_URL}/api/prompt`, {
+    cache: "no-cache",
+  }).then((response) => response.json());
+
   return (
     <section className="w-full flex-center flex-col">
       <h1 className="head_text text-center">
@@ -14,7 +18,7 @@ const Home = () => {
       </p>
 
       {/* Feed */}
-      <Feed />
+      <Feed data={data} />
     </section>
   );
 };

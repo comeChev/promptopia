@@ -29,10 +29,11 @@ const PromptCardList = ({ posts, handleTagClick }: PromptCardListProps) => {
   );
 };
 
-const Feed = () => {
+const Feed = ({ data }: { data: PromptWithCreator[] }) => {
   const [searchText, setSearchText] = useState("");
-  const [posts, setPosts] = useState([]);
-  const [dataDB, setDataDB] = useState([]);
+  const [posts, setPosts] = useState(data);
+  const [dataDB, setDataDB] = useState(data);
+
   function handleSearchChange(e: FormEvent<HTMLInputElement>) {
     setSearchText(e.currentTarget.value);
     const filteredData = dataDB.filter(
@@ -44,6 +45,7 @@ const Feed = () => {
     setPosts(filteredData);
     e.currentTarget.value === "" && setPosts(dataDB);
   }
+
   function handleClickTag(tag: string) {
     setSearchText(tag);
     const filteredData = dataDB.filter(
@@ -51,16 +53,6 @@ const Feed = () => {
     );
     setPosts(filteredData);
   }
-
-  useEffect(() => {
-    const fetchPosts = async () => {
-      const response = await fetch("/api/prompt");
-      const data = await response.json();
-      setPosts(data);
-      setDataDB(data);
-    };
-    fetchPosts();
-  }, []);
 
   return (
     <section className="feed">

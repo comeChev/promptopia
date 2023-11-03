@@ -4,6 +4,7 @@ import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import Form from "@components/Form";
 import { useSession } from "next-auth/react";
+import { revalidatePath } from "next/cache";
 
 const CreatePrompt = () => {
   const [submitting, setSubmitting] = useState(false);
@@ -27,6 +28,7 @@ const CreatePrompt = () => {
         }),
       });
       if (response.ok) {
+        router.prefetch("/");
         router.push("/");
       }
     } catch (error) {
