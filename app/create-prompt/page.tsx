@@ -15,6 +15,10 @@ const CreatePrompt = () => {
   async function createPrompt(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setSubmitting(true);
+    if (!session) {
+      alert("You must be logged in to create a prompt.");
+      return;
+    }
     try {
       const response = await fetch("/api/prompt/new", {
         method: "POST",
